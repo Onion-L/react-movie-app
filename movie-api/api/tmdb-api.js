@@ -1,33 +1,53 @@
-import fetch from "node-fetch";
+import { fetchData } from "../util/fetchData";
+
+export const getMovies = async (page) => {
+  return fetchData("discover/movie", page);
+};
+
+export const getMovie = async (id) => {
+  return fetchData(`movie/${id}`);
+};
+
+export const getMovieImages = (id) => {
+  return fetchData(`movie/${id}/images`);
+};
 
 export const getUpcomingMovies = async () => {
-  try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_KEY}&language=en-US&page=1`
-    );
-
-    if (!response.ok) {
-      throw new Error(response.json().message);
-    }
-
-    return await response.json();
-  } catch (error) {
-    throw error;
-  }
+  return fetchData("movie/upcoming");
 };
 
 export const getGenres = async () => {
-  try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_KEY}&language=en-US&page=1`
-    );
+  return fetchData("genre/movie/list");
+};
 
-    if (!response.ok) {
-      throw new Error(response.json().message);
-    }
+export const getLanguages = async () => {
+  return fetchData("configuration/languages");
+};
 
-    return await response.json();
-  } catch (error) {
-    throw error;
-  }
+export const getLatestMovies = () => {
+  return fetchData("movie/now_playing");
+};
+
+export const getMovieReviews = (id) => {
+  return fetchData(`movie/${id}/reviews`);
+};
+
+export const getTrend = (page) => {
+  return fetchData("trending/movie/day", page);
+};
+
+export const getPeople = () => {
+  return fetchData("person/popular");
+};
+
+export const getPersonDetail = (id) => {
+  return fetchData(`person/${id}`);
+};
+
+export const getCredits = (id) => {
+  return fetchData(`movie/${id}/credits`);
+};
+
+export const getMovieCredits = (id) => {
+  return fetchData(`person/${id}/movie_credits`);
 };
