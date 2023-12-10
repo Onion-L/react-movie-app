@@ -1,7 +1,7 @@
-import { fetchData } from "../util/fetchData";
+import { fetchData, fetchPageData } from "../util/fetchData";
 
 export const getMovies = async (page) => {
-  return fetchData("discover/movie", page);
+  return fetchPageData("discover/movie", page);
 };
 
 export const getMovie = async (id) => {
@@ -33,7 +33,7 @@ export const getMovieReviews = (id) => {
 };
 
 export const getTrend = (page) => {
-  return fetchData("trending/movie/day", page);
+  return fetchPageData("trending/movie/day", page);
 };
 
 export const getPeople = () => {

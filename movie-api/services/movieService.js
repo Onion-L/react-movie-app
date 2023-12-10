@@ -43,11 +43,11 @@ router.get(
 );
 
 router.get(
-  "/image/:id",
+  "/movie/:id/images",
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const images = await getMovieImages(id);
-    if (movie) {
+    if (images) {
       res.status(200).json(images);
     } else {
       res.status(404).json({
@@ -121,7 +121,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const person = await getPersonDetail(id);
-    if (reviews) {
+    if (person) {
       res.status(200).json(person);
     } else {
       res.status(404).json({
@@ -137,7 +137,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const credits = await getCredits(id);
-    if (reviews) {
+    if (credits) {
       res.status(200).json(credits);
     } else {
       res.status(404).json({

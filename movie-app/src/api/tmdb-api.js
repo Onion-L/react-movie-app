@@ -13,11 +13,11 @@ export const getMovie = (args) => {
 };
 
 export const getGenres = async () => {
-  return fetchData("genre/movie/list");
+  return fetchData("genres");
 };
 
 export const getLanguages = async () => {
-  return fetchData("configuration/languages");
+  return fetchData("languages");
 };
 
 export const getLatestMovies = ({ queryKey }) => {
