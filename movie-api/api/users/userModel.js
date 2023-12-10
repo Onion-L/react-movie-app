@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  favorite: { type: String, required: false },
 });
 
 UserSchema.methods.comparePassword = async function (passw) {
@@ -17,7 +16,7 @@ UserSchema.statics.findByUserName = function (username) {
 };
 
 UserSchema.pre("save", async function (next) {
-  const saltRounds = 121; // You can adjust the number of salt rounds
+  const saltRounds = 10; // You can adjust the number of salt rounds
   //const user = this;
   if (this.isModified("password") || this.isNew) {
     try {
