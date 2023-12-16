@@ -24,8 +24,8 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <SiteHeader />
         <MoviesContextProvider>
+          <SiteHeader />
           <RouterView routes={routes} />
         </MoviesContextProvider>
       </BrowserRouter>

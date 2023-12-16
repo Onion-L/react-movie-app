@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { MoviesContext } from "../contexts/moviesContext";
 import { TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstance";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { login } from "../api/auth";
 
 const LoginPage = () => {
+  const context = useContext(MoviesContext);
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
+    favorites: context.favorites,
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const auth = getAuth();
-    signOut(auth).catch((error) => {
-      console.error("Error:", error);
-    });
+    context.setIsAuthenticated(false);
+    if (localStorage.getItem("user")) {
+      localStorage.clear();
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -28,27 +31,14 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const auth = getAuth();
-    // try {
-    //   await signInWithEmailAndPassword(auth, userInfo.email, userInfo.password);
-    //   navigate("/");
-    // } catch (error) {
-    //   console.error("Error:", error.message);
-    // }
-
-    console.log(userInfo);
-    axiosInstance
-      .post("/api/users", userInfo)
-      .then((res) => {
-        //token
-        const TOKEN = res.data.token.split(" ")[1];
-        console.log("ttt", TOKEN);
-        localStorage.setItem("user", userInfo.username);
-        navigate("/");
-      })
-      .catch((e) => {
-        console.log(e.msg);
-      });
+    const result = await login(userInfo);
+    if (result.token) {
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("userId", result.userId);
+      localStorage.setItem("favorites", result.favorites);
+      context.setIsAuthenticated(true);
+      navigate("/");
+    }
   };
 
   return (

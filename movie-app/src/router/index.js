@@ -2,7 +2,6 @@ import { lazy } from "react";
 const HomePage = lazy(() => import("../pages/homePage"));
 const PersonPage = lazy(() => import("../pages/personPage"));
 const SearchPage = lazy(() => import("../pages/searchPage"));
-const FavoriteMoviesPage = lazy(() => import("../pages/favoriteMoviesPage"));
 const UpcomingMoviesPage = lazy(() => import("../pages/upcomingMoviesPage"));
 const TrendMoviesPage = lazy(() => import("../pages/trendMoviesPage"));
 const AddMovieReviewPage = lazy(() => import("../pages/addMovieReviewPage"));
@@ -47,10 +46,7 @@ const routes = [
     path: "/movies/now-playing",
     component: LatestMoviesPage,
   },
-  {
-    path: "/favorites",
-    component: FavoriteMoviesPage,
-  },
+
   {
     path: "/movies/upcoming",
     component: UpcomingMoviesPage,

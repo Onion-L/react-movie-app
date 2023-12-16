@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-
+import { ManageFavoriteMovie } from "../api/uploader";
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
+  const userId = localStorage.getItem("userId");
   const [favorites, setFavorites] = useState([]);
   const [myReviews, setMyReviews] = useState({});
   const [mustWatch, setMustWatch] = useState([]);
   const [page, setPage] = useState(1);
-  const [auth, setAuth] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(userId));
 
   const changePage = (newPage) => {
     setPage(newPage);
@@ -17,6 +18,7 @@ const MoviesContextProvider = (props) => {
     let newFavorites = [];
     if (!favorites.includes(movie.id)) {
       newFavorites = [...favorites, movie.id];
+      ManageFavoriteMovie(newFavorites);
     } else {
       newFavorites = [...favorites];
     }
@@ -24,7 +26,9 @@ const MoviesContextProvider = (props) => {
   };
 
   const removeFromFavorites = (movie) => {
-    setFavorites(favorites.filter((mId) => mId !== movie.id));
+    const newFavorites = favorites.filter((mId) => mId !== movie.id);
+    setFavorites(newFavorites);
+    ManageFavoriteMovie(newFavorites);
   };
 
   const addReview = (movie, review) => {
@@ -41,23 +45,19 @@ const MoviesContextProvider = (props) => {
     setMustWatch(newMustWatch);
   };
 
-  const setAuthState = () => {
-    const isAuth = !auth;
-    setAuth(isAuth);
-  };
   return (
     <MoviesContext.Provider
       value={{
         favorites,
         mustWatch,
         page,
-        auth,
+        isAuthenticated,
         addToFavorites,
         removeFromFavorites,
         addReview,
         addToMustWatch,
         changePage,
-        setAuthState,
+        setIsAuthenticated,
       }}
     >
       {props.children}

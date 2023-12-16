@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
-import { onAuthStateChanged, signOut } from "firebase/auth";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -18,9 +17,8 @@ import { deepPurple } from "@mui/material/colors";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = ({ history }) => {
-  const { auth, setAuth } = useContext(MoviesContext);
-
+const SiteHeader = () => {
+  const context = useContext(MoviesContext);
   const [userAnchorEl, setUserAnchorEl] = useState(null);
   const userOpen = Boolean(userAnchorEl);
 
@@ -30,13 +28,11 @@ const SiteHeader = ({ history }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    // const unsubscribe = onAuthStateChanged(auth, (user) => {
-    //   setIsUserLoggedIn(!!user);
-    // });
-    // return () => unsubscribe();
-    // console.log(auth);
-    // setIsUserLoggedIn(auth);
-  }, []);
+    console.log("123", context.isAuthenticated);
+    if (context.isAuthenticated) {
+      setIsUserLoggedIn(true);
+    }
+  });
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -69,16 +65,17 @@ const SiteHeader = ({ history }) => {
   };
 
   const handleLogout = async () => {
-    // const auth = getAuth();
-    // try {
-    //   await signOut(auth);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    context.setIsAuthenticated(false);
+    localStorage.clear();
+    setIsUserLoggedIn(false);
   };
 
   const handleLogin = () => {
     navigate("/login");
+  };
+
+  const handleSignup = () => {
+    navigate("/register");
   };
   return (
     <>
@@ -210,14 +207,19 @@ const SiteHeader = ({ history }) => {
                   </Menu>
                 </>
               ) : (
-                <Button
-                  name="signin"
-                  color="inherit"
-                  sx={{ border: "1px #fff solid" }}
-                  onClick={handleLogin}
-                >
-                  sign in
-                </Button>
+                <>
+                  <Button name="signup" color="inherit" onClick={handleSignup}>
+                    sign up
+                  </Button>
+                  <Button
+                    name="signin"
+                    color="inherit"
+                    sx={{ border: "1px #fff solid" }}
+                    onClick={handleLogin}
+                  >
+                    sign in
+                  </Button>
+                </>
               )}
             </>
           )}
