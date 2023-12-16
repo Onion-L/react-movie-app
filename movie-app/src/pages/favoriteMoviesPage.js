@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
+import PageTemplate from "../components/templateMovieListPage";
 import { useQueries } from "react-query";
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";

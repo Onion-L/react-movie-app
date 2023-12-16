@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import React, { useState, useEffect, useContext } from "react";
+import { MoviesContext } from "../../contexts/moviesContext";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -18,6 +19,8 @@ import { deepPurple } from "@mui/material/colors";
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
+  const { auth, setAuth } = useContext(MoviesContext);
+
   const [userAnchorEl, setUserAnchorEl] = useState(null);
   const userOpen = Boolean(userAnchorEl);
 
@@ -27,12 +30,12 @@ const SiteHeader = ({ history }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsUserLoggedIn(!!user);
-    });
-
-    return () => unsubscribe();
+    // const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //   setIsUserLoggedIn(!!user);
+    // });
+    // return () => unsubscribe();
+    // console.log(auth);
+    // setIsUserLoggedIn(auth);
   }, []);
 
   const theme = useTheme();
@@ -66,12 +69,12 @@ const SiteHeader = ({ history }) => {
   };
 
   const handleLogout = async () => {
-    const auth = getAuth();
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // const auth = getAuth();
+    // try {
+    //   await signOut(auth);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
   };
 
   const handleLogin = () => {
@@ -122,7 +125,7 @@ const SiteHeader = ({ history }) => {
             </>
           ) : (
             <>
-              {menuOptions.map((opt) =>
+              {menuOptions.map((opt, index) =>
                 opt.children ? (
                   <>
                     <Button
@@ -133,6 +136,7 @@ const SiteHeader = ({ history }) => {
                       {opt.label}
                     </Button>
                     <Menu
+                      key={index}
                       sx={{ mt: "45px" }}
                       id="menu-appbar"
                       anchorEl={menuAnchorEl}

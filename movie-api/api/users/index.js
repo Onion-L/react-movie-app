@@ -3,6 +3,51 @@ import User from "./userModel";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           unique: true
+ *           required: true
+ *           description: The unique username for the user
+ *         password:
+ *           type: string
+ *           required: true
+ *           description: The password for the user's account
+ */
+
+/**
+ * @swagger
+ * /api/users/{username}:
+ *   get:
+ *     summary: Retrieve a user by username
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The username of the user to retrieve
+ *     responses:
+ *       200:
+ *         description: A user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+
 const validatePassword = (password) => {
   const regex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;

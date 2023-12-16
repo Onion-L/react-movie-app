@@ -1,5 +1,5 @@
-export const handleApiResponse = async (res, getData, resource) => {
-  const data = await getData();
+export const handleApiResponse = async (res, getData, resource, page) => {
+  const data = await getData(page);
   if (data) {
     res.status(200).json(data);
   } else {

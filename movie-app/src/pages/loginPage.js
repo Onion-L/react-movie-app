@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../utils/axiosInstance";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const LoginPage = () => {
   const [userInfo, setUserInfo] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -27,23 +28,36 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const auth = getAuth();
+    // try {
+    //   await signInWithEmailAndPassword(auth, userInfo.email, userInfo.password);
+    //   navigate("/");
+    // } catch (error) {
+    //   console.error("Error:", error.message);
+    // }
 
-    const auth = getAuth();
-    try {
-      await signInWithEmailAndPassword(auth, userInfo.email, userInfo.password);
-      navigate("/");
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+    console.log(userInfo);
+    axiosInstance
+      .post("/api/users", userInfo)
+      .then((res) => {
+        //token
+        const TOKEN = res.data.token.split(" ")[1];
+        console.log("ttt", TOKEN);
+        localStorage.setItem("user", userInfo.username);
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e.msg);
+      });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        label="email"
+        label="Username"
         variant="outlined"
-        name="email"
-        value={userInfo.email}
+        name="username"
+        value={userInfo.username}
         onChange={handleChange}
         fullWidth
         margin="normal"

@@ -7,6 +7,7 @@ const MoviesContextProvider = (props) => {
   const [myReviews, setMyReviews] = useState({});
   const [mustWatch, setMustWatch] = useState([]);
   const [page, setPage] = useState(1);
+  const [auth, setAuth] = useState(false);
 
   const changePage = (newPage) => {
     setPage(newPage);
@@ -40,17 +41,23 @@ const MoviesContextProvider = (props) => {
     setMustWatch(newMustWatch);
   };
 
+  const setAuthState = () => {
+    const isAuth = !auth;
+    setAuth(isAuth);
+  };
   return (
     <MoviesContext.Provider
       value={{
         favorites,
         mustWatch,
         page,
+        auth,
         addToFavorites,
         removeFromFavorites,
         addReview,
         addToMustWatch,
         changePage,
+        setAuthState,
       }}
     >
       {props.children}

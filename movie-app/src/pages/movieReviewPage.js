@@ -7,7 +7,6 @@ const MovieReviewPage = (props) => {
   let location = useLocation();
   const { movie, review } = location.state;
 
-  console.log("location", location.state);
   return (
     <PageTemplate movie={movie}>
       <MovieReview review={review} />

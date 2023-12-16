@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
 
 const FilterAccordion = ({
-  genres,
+  genres = [],
   languages,
   handleGenreChange,
   handleLangChange,

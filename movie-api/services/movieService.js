@@ -5,8 +5,6 @@ import {
   getMovie,
   getMovieImages,
   getUpcomingMovies,
-  getGenres,
-  getLanguages,
   getLatestMovies,
   getMovieReviews,
   getTrend,
@@ -22,7 +20,8 @@ const router = express.Router();
 router.get(
   "/movies",
   asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getMovies, "movies");
+    const page = req.query.page;
+    await handleApiResponse(res, getMovies, "movies", page);
   })
 );
 
@@ -61,40 +60,36 @@ router.get(
 router.get(
   "/upcoming",
   asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getUpcomingMovies, "upcoming movies");
+    const page = req.query.page;
+    await handleApiResponse(res, getUpcomingMovies, "upcoming movies", page);
   })
 );
 
 router.get(
   "/trend",
   asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getTrend, "trend movies");
-  })
-);
+    const page = req.query.page;
 
-router.get(
-  "/genres",
-  asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getGenres, "genres infomation");
-  })
-);
-
-router.get(
-  "/languages",
-  asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getLanguages, "languages infomation");
+    await handleApiResponse(res, getTrend, "trend movies", page);
   })
 );
 
 router.get(
   "/now_playing",
   asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getLatestMovies, "latest movies infomation");
+    const page = req.query.page;
+
+    await handleApiResponse(
+      res,
+      getLatestMovies,
+      "latest movies infomation",
+      page
+    );
   })
 );
 
 router.get(
-  "/reviews/:id",
+  "/movie/:id/reviews",
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const reviews = await getMovieReviews(id);
@@ -112,7 +107,9 @@ router.get(
 router.get(
   "/people",
   asyncHandler(async (req, res) => {
-    await handleApiResponse(res, getPeople, "people infomation");
+    const page = req.query.page;
+
+    await handleApiResponse(res, getPeople, "people infomation", page);
   })
 );
 

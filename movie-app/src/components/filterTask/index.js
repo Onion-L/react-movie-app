@@ -30,7 +30,7 @@ const FilterTask = ({ changeFilter, handleSortChange }) => {
     return <h1>Error</h1>;
   }
 
-  const genres = gneresList.genres;
+  const genres = gneresList;
   const languages = languagesList;
 
   const handleLangChange = (e) => {

@@ -3,6 +3,94 @@ import asyncHandler from "express-async-handler";
 import express from "express";
 import { getUpcomingMovies, getGenres } from "../tmdb-api";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Movie:
+ *       type: object
+ *       required:
+ *         - id
+ *       properties:
+ *         adult:
+ *           type: boolean
+ *           description: Indicates if the movie is for adults
+ *         id:
+ *           type: number
+ *           description: The unique identifier for the movie
+ *         poster_path:
+ *           type: string
+ *           description: Path to the movie's poster image
+ *         overview:
+ *           type: string
+ *           description: A brief overview of the movie
+ *         release_date:
+ *           type: string
+ *           description: The release date of the movie
+ *         original_title:
+ *           type: string
+ *           description: The original title of the movie
+ *         genre_ids:
+ *           type: array
+ *           items:
+ *             type: number
+ *           description: Array of genre IDs associated with the movie
+ *         original_language:
+ *           type: string
+ *           description: The original language of the movie
+ *         title:
+ *           type: string
+ *           description: The title of the movie
+ *         backdrop_path:
+ *           type: string
+ *           description: Path to the movie's backdrop image
+ *         popularity:
+ *           type: number
+ *           description: Popularity score of the movie
+ *         vote_count:
+ *           type: number
+ *           description: Number of votes the movie received
+ *         video:
+ *           type: boolean
+ *           description: Indicates if the entry is a video
+ *         vote_average:
+ *           type: number
+ *           description: Average vote score of the movie
+ *         production_countries:
+ *           type: array
+ *           description: List of countries where the movie was produced
+ *           items:
+ *             type: object
+ *             properties:
+ *               iso_3166_1:
+ *                 type: string
+ *                 description: ISO 3166-1 code of the country
+ *               name:
+ *                 type: string
+ *                 description: Name of the country
+ *         runtime:
+ *           type: number
+ *           description: Runtime of the movie in minutes
+ *         spoken_languages:
+ *           type: array
+ *           description: Languages spoken in the movie
+ *           items:
+ *             type: object
+ *             properties:
+ *               iso_639_1:
+ *                 type: string
+ *                 description: ISO 639-1 code of the language
+ *               name:
+ *                 type: string
+ *                 description: Name of the language
+ *         status:
+ *           type: string
+ *           description: The current status of the movie (e.g., Released, In Production)
+ *         tagline:
+ *           type: string
+ *           description: Tagline of the movie
+ */
+
 const router = express.Router();
 
 router.get(

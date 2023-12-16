@@ -3,7 +3,7 @@ import { fetchData, fetchPageData } from "../utils/fetch";
 export const getMovies = (args) => {
   const [, idPart] = args.queryKey;
   const { page } = idPart;
-  return fetchPageData("discover/movie", page);
+  return fetchPageData("/movies", page);
 };
 
 export const getMovie = (args) => {
@@ -23,7 +23,7 @@ export const getLanguages = async () => {
 export const getLatestMovies = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { page } = idPart;
-  return fetchPageData("movie/now_playing", page);
+  return fetchPageData("now_playing", page);
 };
 
 export const getMovieImages = ({ queryKey }) => {
@@ -41,19 +41,19 @@ export const getMovieReviews = ({ queryKey }) => {
 export const getUpcomingMovies = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { page } = idPart;
-  return fetchPageData("movie/upcoming", page);
+  return fetchPageData("upcoming", page);
 };
 
 export const getTrend = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { page } = idPart;
-  return fetchPageData("trending/movie/day", page);
+  return fetchPageData("trend", page);
 };
 
 export const getPeople = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { page } = idPart;
-  return fetchPageData("person/popular", page);
+  return fetchPageData("people", page);
 };
 
 export const getPersonDetail = ({ queryKey }) => {
