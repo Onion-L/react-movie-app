@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Navigate, Routes } from "react-router-dom";
+import ProtectedRoutes from "../protectedRoutes";
+import protectedRouter from "./protectedRouter";
 
 const RouterView = ({ routes }) => {
   return (
@@ -20,6 +22,23 @@ const RouterView = ({ routes }) => {
             />
           );
         })}
+        <Route element={<ProtectedRoutes />}>
+          {protectedRouter.map((route, index) => {
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  route.redirect ? (
+                    <Navigate to={route.redirect} />
+                  ) : (
+                    <route.component />
+                  )
+                }
+              />
+            );
+          })}
+        </Route>
       </Routes>
     </Suspense>
   );

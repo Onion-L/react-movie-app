@@ -1,36 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signup } from "../api/auth";
 import { TextField, Button, Collapse } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
-function validateEmail(email) {
-  const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  return regex.test(email);
-}
-
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError(false);
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (validateEmail(user.email)) {
-          navigate("/login");
-        } else {
-          throw new Error("Please enter the right email address");
-        }
-      })
-      .catch((error) => {
-        setError(true);
-        console.error("Register Error:", error.message);
-      });
+    try {
+      const response = await signup(userInfo);
+      if (response.success) {
+        navigate("/login");
+      } else {
+        throw new Error(response.msg);
+      }
+    } catch (error) {
+      setError(true);
+      console.error("Register Error:", error.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
   return (
@@ -43,11 +41,11 @@ const RegisterPage = () => {
       </Collapse>
       <form onSubmit={handleRegister}>
         <TextField
-          label="email"
+          label="Username"
           variant="outlined"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="username"
+          value={userInfo.username}
+          onChange={handleChange}
           fullWidth
           margin="normal"
         />
@@ -56,8 +54,8 @@ const RegisterPage = () => {
           variant="outlined"
           type="password"
           name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userInfo.password}
+          onChange={handleChange}
           fullWidth
           margin="normal"
         />
