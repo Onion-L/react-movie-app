@@ -9,6 +9,7 @@ import Spinner from "../components/spinner";
 
 const FavoriteMoviesPage = () => {
   const { favorites: movieIds } = useContext(MoviesContext);
+  console.log(movieIds);
 
   // Create an array of queries and run in parallel.
   const favoriteMovieQueries = useQueries(

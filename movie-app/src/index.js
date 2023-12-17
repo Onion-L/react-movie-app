@@ -8,7 +8,6 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import RouterView from "./router/routerView";
 import routes from "./router";
 import "./style/index.css";
-import "./firebase/index";
 
 const queryClient = new QueryClient({
   defaultOptions: {
