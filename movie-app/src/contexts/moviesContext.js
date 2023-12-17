@@ -4,7 +4,8 @@ export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
   const userId = localStorage.getItem("userId");
-  const [favorites, setFavorites] = useState([]);
+  const favoriteMovies = JSON.parse(localStorage.getItem("favorites"));
+  const [favorites, setFavorites] = useState(favoriteMovies);
   const [myReviews, setMyReviews] = useState({});
   const [mustWatch, setMustWatch] = useState([]);
   const [page, setPage] = useState(1);
@@ -14,10 +15,15 @@ const MoviesContextProvider = (props) => {
     setPage(newPage);
   };
 
+  const updateFavorite = (movies) => {
+    setFavorites(movies);
+  };
+
   const addToFavorites = (movie) => {
     let newFavorites = [];
     if (!favorites.includes(movie.id)) {
       newFavorites = [...favorites, movie.id];
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
       ManageFavoriteMovie(newFavorites);
     } else {
       newFavorites = [...favorites];
@@ -28,6 +34,7 @@ const MoviesContextProvider = (props) => {
   const removeFromFavorites = (movie) => {
     const newFavorites = favorites.filter((mId) => mId !== movie.id);
     setFavorites(newFavorites);
+    localStorage.setItem("favorites", JSON.stringify(newFavorites));
     ManageFavoriteMovie(newFavorites);
   };
 
@@ -52,6 +59,7 @@ const MoviesContextProvider = (props) => {
         mustWatch,
         page,
         isAuthenticated,
+        updateFavorite,
         addToFavorites,
         removeFromFavorites,
         addReview,

@@ -10,6 +10,7 @@ const RegisterPage = () => {
     password: "",
   });
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -18,11 +19,10 @@ const RegisterPage = () => {
       const response = await signup(userInfo);
       if (response.success) {
         navigate("/login");
-      } else {
-        throw new Error(response.msg);
       }
     } catch (error) {
       setError(true);
+      setErrorMsg(error.response.data.msg);
       console.error("Register Error:", error.message);
     }
   };
@@ -36,7 +36,7 @@ const RegisterPage = () => {
       <h2>Register</h2>
       <Collapse in={error}>
         <Alert severity="error" id="error-alert">
-          Please enter the right email address
+          {errorMsg}
         </Alert>
       </Collapse>
       <form onSubmit={handleRegister}>

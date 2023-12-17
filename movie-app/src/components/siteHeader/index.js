@@ -66,7 +66,9 @@ const SiteHeader = () => {
 
   const handleLogout = async () => {
     context.setIsAuthenticated(false);
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.setItem("favorites", JSON.stringify([]));
     setIsUserLoggedIn(false);
   };
 
