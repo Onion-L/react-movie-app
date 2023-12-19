@@ -6,8 +6,8 @@
 
 ### Technology
 
-__Backend:__ Express, JWT, MongoDB, Mongoose
-__Frontend:__ React, Material UI, Axios
++ __Backend:__ Express, JWT, MongoDB, Mongoose
++ __Frontend:__ React, Material UI, Axios
 
 ### Features
 
@@ -26,5 +26,5 @@ __Frontend:__ React, Material UI, Axios
 
 ## Document
 
-__Backend:__ [Application Backend Document](movie-api/README.md)
-__Frontend:__ [Application Backend Document](movie-app/README.md)
++ __Backend:__ [Application Backend Document](movie-api/README.md)
++ __Frontend:__ [Application Backend Document](movie-app/README.md)
