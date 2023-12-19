@@ -52,6 +52,25 @@ import express from "express";
  *                 description: Backdrop path of the item
  */
 
+/**
+ * @swagger
+ * /actor:
+ *   get:
+ *     summary: Retrieves a list of actors
+ *     description: This endpoint retrieves all actors from the database.
+ *     responses:
+ *       200:
+ *         description: A list of actors.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Actor'
+ *       500:
+ *         description: Internal server error
+ */
+
 const router = express.Router();
 
 router.get(

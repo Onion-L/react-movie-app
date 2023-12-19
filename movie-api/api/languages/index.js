@@ -24,6 +24,25 @@ import express from "express";
  *           description: The native name of the language
  */
 
+/**
+ * @swagger
+ * /tmdb/languages:
+ *   get:
+ *     summary: Retrieves a list of languages
+ *     description: This endpoint retrieves all languages from the database.
+ *     responses:
+ *       200:
+ *         description: A list of languages.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Language'
+ *       404:
+ *         description: The languages you requested could not be found.
+ */
+
 const router = express.Router();
 
 router.get(

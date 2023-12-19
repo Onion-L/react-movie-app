@@ -51,25 +51,6 @@ import { handleApiResponse } from "../../util/apiHandler";
  *           description: URL of the review
  */
 
-/**
- * @swagger
- * /api/reviews:
- *   get:
- *     summary: Retrieve all reviews
- *     tags: [Reviews]
- *     responses:
- *       200:
- *         description: A list of reviews
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Review'
- *       404:
- *         description: No reviews found
- */
-
 const router = express.Router();
 
 router.get(

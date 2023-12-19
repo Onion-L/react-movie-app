@@ -1,10 +1,12 @@
-# Assignment 1 - Agile Software Practice
+# Assignment 1 - React Movie App
 
-__Name:__ Xiang Li 20095236
+Name: Xiang Li 20095236
 
-This repository contains the implementation of a React App, its associated Cypress tests and the GitLab CI pipeline.
+## Overview
 
-## React App Features
+ A web application that provides users with comprehensive information about movies, including details on specific movies, trending movies, latest movies, and movie genres. It also includes functionalities for user authentication and profile management. The page layout has been changed.
+
+### Features
 
 + Home Page: Displays a list of movies.
 + Latest Movies Page: Shows the latest movies.
@@ -14,106 +16,72 @@ This repository contains the implementation of a React App, its associated Cypre
 + Person Page: Lists popular actors.
 + Search Page: The results of the search are displayed on this page.
 + Add Movie Review Page: Allows users to add reviews for movies.
++ Favorite Movies Page: Users can view and manage their list of favorite movies.
++ Movie Review Page: Displays user reviews for specific movies.
 + Trending Movies Page: Showcases movies that are trending.
++ Upcoming Movies Page: Lists movies that are upcoming.
 
-## Automated Tests
+## functionality
 
-### Unique functionality testing (if relevant)
+1. Jump between movie detail and people detail pages
+2. Search by the name of movies
+3. Filter movies by language and genre
+4. User login function
+5. pagination
 
-#### Filter
+## Setup requirements
 
-+ cypress/e2e/filter.cy.js
++ Clone the repository: git clone '<https://github.com/Onion-L/react-movie-labs.git>'
++ Navigate to the project directory: cd movies
++ Install dependencies: npm install
++ Start the application: npm start
 
-__Filtering by movie title__ - Allows users to filter the movie list by typing in a specific letter or sequence of letters. Movies that contain the letter 'm' in their titles are displayed accordingly.
+## API endpoints
 
-__Filtering by movie genre__ - Enables users to filter movies by selecting a genre from the list. For example, selecting 'Drama' will only display movies that are categorized within this genre.
+The application uses additional TMDB endpoints including:
 
-__Filtering by movie language__ - Provides the ability for users to filter movies by the language they are in. Selecting 'English' will display movies that are available in English.
++ Discover list of movies - `GET /discover/movie`
++ Movie details - `GET /movie/:id`
++ Movie genres - `GET /genre/movie/list`
++ Person details - `GET /person/:id`
++ Search movies - `GET /search/movie`
++ Trending movies - `GET /trending/movie/day`
++ Upcoming movies - `GET /movie/upcoming`
++ Languages - `GET /configuration/languages`
++ movie credits - `GET /movie/:id/credits`
++ person credits - `GET /person/:id/movie_credits`
 
-#### Login
+## Routing
 
-+ cypress/e2e/login.cy.js
+The application supports several new routes:
 
-__User Login__ - Verifies that a user can log in using their credentials. After successful login, the user is redirected to the home page.
++ `/home` - displays the home page with trending movies.
++ `/movies/latest` - displays the latest movies.
++ `/movies/upcoming` - shows upcoming movie releases.
++ `/movies/:id` - displays detailed information about a specific movie.
++ `/person/:id` - displays detailed information about a specific person in the movie industry.
++ `/search` - allows users to search for movies and persons.
 
-__User Sign Up__ - Tests the user registration process with an email address. A unique email is generated for each test to ensure the test's integrity.
+Protected routes (require user authentication):
 
-__User Logout__ - Checks the logout functionality. After logging out, the user should see the sign-in button, confirming that the logout was successful.
++ `/movies/favorites` - displays a user's favorite movies.
 
-#### Navigation
+## Independent learning
 
-+ cypress/e2e/navigation.cy.js
+This project includes the following technologies and techniques not covered in lectures:
 
-__Navigation to Movie Details__ - Confirms that when a user clicks on 'More Info' for a movie, they are directed to the movie details page with the URL reflecting the specific movie ID.
++ Material-UI for modern, responsive UI components.
++ Encapsulate router paths as an array of objects
++ Encapsulate api requests into two functions: fetchData and fetchPageData
 
-__Navigation from Movie Details to People Page__ - Tests the functionality that allows users to navigate from a movie's details page to the associated people page, updating the URL to the correct person ID.
+References:
 
-__Navigation from People Page to Movie Details__ - Ensures that when navigating from a person's profile to their movie credits, the application redirects to the correct movie details page with the appropriate movie ID in the URL.
++ [Firebase Documentation](https://firebase.google.com/docs)
++ [Cypress.io Docs](https://docs.cypress.io)
++ [Material-UI Documentation](https://material-ui.com/)
 
-#### Pagination
-
-+ cypress/e2e/pagination.cy.js
-
-__Next Page Navigation__ - Ensures that the user can navigate to the next page of movies by clicking the 'Next' button. After clicking, a new set of movies should be displayed, indicating the page change.
-
-__Direct Page Selection__ - Tests that the user can jump to a specific page by clicking on the corresponding page number. This is crucial for accessing movies available on non-sequential pages.
-
-__First Page Boundary__ - Verifies that the 'Previous' page button is disabled when the user is on the first page to prevent unnecessary errors or empty page views.
-
-### Error/Exception testing (if relevant)
-
-__Sign up error__ - The error alert will appear if user doesn't input the right format of email when sign up
-
-+ cypress/e2e/login.cy.js
-
-### Cypress Custom commands (if relevant)
-
-+ cypress/e2e/login.cy.js (login)
-+ cypress/e2e/filter.cy.js (search)
-
-## Code Splitting
-
-+ src/pages/homePage.js
-+ src/pages/personPage.js
-+ src/pages/searchPage.js
-+ src/pages/favoriteMoviesPage.js
-+ src/pages/upcomingMoviesPage.js
-+ src/pages/trendMoviesPage.js
-+ src/pages/addMovieReviewPage.js
-+ src/pages/movieReviewPage.js
-+ src/pages/movieDetailsPage.js
-+ src/pages/personDetailPage.js
-+ src/pages/loginPage.js
-+ src/pages/latestMoviesPage.js
-+ src/pages/registerPage.js
-
-## Pull Requests
-
-__Github:__ <https://github.com/Onion-L/react-movie-labs>
-__Gitlab:__ <https://gitlab.com/Onion-L/react-movie-labs>
-
-## Independent learning (If relevant)
-
-### build and code spliting
-
-The code splits the component into separate chunks according to the route
 ![Alt text](./assets/image.png)
 
-### Test Document
-
-Use JSDoc to complete the test documentation
 ![Alt text](./assets/image-1.png)
 
-### encapsulation of routes
-
-Encapsulate the route's paths and components into an array of routes objects, and then encapsulate the routes into a routeView file
-
-+ router/index.js
 ![Alt text](./assets/image-2.png)
-+ router/routerView.js
-![Alt text](./assets/image-3.png)
-
-### Wrap API request methods
-
-Abstract the api request into two functions
-![Alt text](./assets/image-4.png)

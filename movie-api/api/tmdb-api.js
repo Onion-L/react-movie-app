@@ -16,14 +16,6 @@ export const getUpcomingMovies = async () => {
   return fetchData("movie/upcoming");
 };
 
-export const getGenres = async () => {
-  return fetchData("genre/movie/list");
-};
-
-export const getLanguages = async () => {
-  return fetchData("configuration/languages");
-};
-
 export const getLatestMovies = () => {
   return fetchData("movie/now_playing");
 };

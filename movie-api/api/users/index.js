@@ -24,30 +24,6 @@ import jwt from "jsonwebtoken";
  *           description: The password for the user's account
  */
 
-/**
- * @swagger
- * /api/users/{username}:
- *   get:
- *     summary: Retrieve a user by username
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: username
- *         required: true
- *         schema:
- *           type: string
- *         description: The username of the user to retrieve
- *     responses:
- *       200:
- *         description: A user object
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: User not found
- */
-
 const validatePassword = (password) => {
   const regex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -55,12 +31,56 @@ const validatePassword = (password) => {
 };
 
 const router = express.Router(); // eslint-disable-line
+/**
+ * @swagger
+ * /api/user:
+ *   get:
+ *     summary: Retrieves all users
+ *     description: This endpoint retrieves a list of all users from the database.
+ *     responses:
+ *       200:
+ *         description: An array of users.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
 
 // Get all users
 router.get("/", async (req, res) => {
   const users = await User.find();
   res.status(200).json(users);
 });
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Register or authenticate a user
+ *     description: This endpoint either registers a new user or authenticates an existing user, based on the query parameter.
+ *     parameters:
+ *       - in: query
+ *         name: action
+ *         schema:
+ *           type: string
+ *         description: Specify 'register' for registration or leave blank for authentication.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User authenticated successfully.
+ *       201:
+ *         description: User registered successfully.
+ *       400:
+ *         description: Invalid input data.
+ *       401:
+ *         description: Authentication failed.
+ */
 
 // register(Create) User
 router.post(
@@ -89,7 +109,31 @@ router.post(
     }
   })
 );
-
+/**
+ * @swagger
+ * /api/users/:id:
+ *   put:
+ *     summary: Update a user
+ *     description: This endpoint updates the information of a user identified by their ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the user to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User updated successfully.
+ *       404:
+ *         description: User not found.
+ */
 // Update a user
 router.put("/:id", async (req, res) => {
   if (req.body._id) delete req.body._id;

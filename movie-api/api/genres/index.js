@@ -20,6 +20,25 @@ import genresModel from "./genresModel";
  *           description: Name of the genre
  */
 
+/**
+ * @swagger
+ * /tmdb/genres:
+ *   get:
+ *     summary: Retrieves a list of genres
+ *     description: This endpoint retrieves all genres from the database.
+ *     responses:
+ *       200:
+ *         description: A list of genres.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Genre'
+ *       404:
+ *         description: The genres you requested could not be found.
+ */
+
 const router = express.Router();
 
 router.get(

@@ -1,7 +1,6 @@
 import movieModel from "./movieModel";
 import asyncHandler from "express-async-handler";
 import express from "express";
-import { getUpcomingMovies, getGenres } from "../tmdb-api";
 
 /**
  * @swagger
@@ -93,6 +92,32 @@ import { getUpcomingMovies, getGenres } from "../tmdb-api";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/movies:
+ *   get:
+ *     summary: Retrieves a paginated list of movies
+ *     description: Returns a list of movies with pagination. Default limit is 10 movies per page.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number of the movies list
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of movies per page
+ *     responses:
+ *       200:
+ *         description: A paginated list of movies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MovieList'
+ */
+
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -119,6 +144,29 @@ router.get(
     res.status(200).json(returnObject);
   })
 );
+/**
+ * @swagger
+ * /api/movies/:id:
+ *   get:
+ *     summary: Retrieves details of a specific movie
+ *     description: Returns the details of a movie based on the movie ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Unique ID of the movie
+ *     responses:
+ *       200:
+ *         description: Details of the specified movie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Movie'
+ *       404:
+ *         description: The movie with the specified ID was not found
+ */
 
 // Get movie details
 router.get(
