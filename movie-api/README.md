@@ -29,6 +29,58 @@ SECRET=JWT_SECRET_KEY
 
 ## API Design
 
+### Actor
+
++ __GET /actor:__ Retrieves a list of actors.
+
+### Genres
+
++ __GET /tmdb/genres:__ Retrieves a list of genres.
+
+### Languages
+
++ __GET /tmdb/languages:__ Retrieves a list of languages.
+
+### Movies
+
++ __GET /api/movies:__ Retrieves a paginated list of movies.
+
++ __GET /api/movies/{id}:__ Retrieves details of a specific movie.
+
++ __GET /tmdb/movies:__ Retrieves a list of movies.
+
++ __GET /tmdb/movie/{id}:__ Retrieves details of a specific movie.
+
++ __GET /tmdb/movie/:id/images:__ Retrieves images for a specific movie.
+
++ __GET /tmdb/upcoming:__ Retrieves upcoming movies.
+
++ __GET /tmdb/trend:__ Retrieves trending movies.
+
++ __GET /tmdb/now_playing:__ Retrieves movies that are currently playing.
+
++ __GET /tmdb/movie/:id/reviews:__ Retrieves reviews for a specific movie.
+
+### User
+
++ __GET /api/user:__ Retrieves all users.
+
++ __POST /api/users:__ Register or authenticate a user.
+
++ __PUT /{id}:__ Update a user.
+
+### People
+
++ __GET /tmdb/people:__ Retrieves a list of people.
+
++ __GET /tmdb/person/{id}:__ Retrieves details of a specific person.
+
+### Credits
+
++ __GET /tmdb/movie/:id/credits:__ Retrieves credits for a specific movie.
+
++ __GET /tmdb/person/:id/movie_credits:__ Retrieves movie credits for a specific person.
+
 ![api design](image.png)
 
 ## Security and Authentication
